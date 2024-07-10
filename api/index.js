@@ -12,8 +12,16 @@ const app = express()
 
 const PORT = env.PORT ?? 3002
 
+const whiteList = ['https://aluraflixapi.vercel.app', 'http://localhost:5173'];
+const options = {
+  origin: (origin, callback) => {
+    (whiteList.includes(origin) || !origin)
+      ? callback(null, true)
+      : callback(new Error('Acceso no permitido'));
+  }
+};
+app.use(cors(options));
 app.use(express.json())
-app.use(cors({ origin: '*' }))
 
 app.get('/videos', async (req, res) => {
   try {
@@ -59,7 +67,7 @@ app.post('/videos', async (req, res) => {
     }
     videos.push(newVideo)
 
-    res.status(200).json(newVideo)
+    res.status(200).json({...newVideo})
 
   } catch (error) {
     res.status(500).send({error: error.message})
