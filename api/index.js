@@ -13,7 +13,12 @@ const app = express()
 const PORT = env.PORT ?? 3002
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://aluraflix-frezdev.vercel.app/'
+  ]
+}))
 
 app.get('/videos', async (req, res) => {
   try {
