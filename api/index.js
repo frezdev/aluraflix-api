@@ -12,7 +12,8 @@ const app = express()
 
 const PORT = env.PORT ?? 3002
 
-const whiteList = ['https://aluraflixapi.vercel.app', 'http://localhost:5173'];
+// CORS CONFIG
+const whiteList = ['https://aluraflix-frezdev.vercel.app', 'http://localhost:5173'];
 const options = {
   origin: (origin, callback) => {
     (whiteList.includes(origin) || !origin)
@@ -21,18 +22,20 @@ const options = {
   }
 };
 app.use(cors(options));
+
 app.use(express.json())
 
+// GET ALL VIDEOS
 app.get('/videos', async (req, res) => {
   try {
-    res.status(200).json(videos)
+    res.status(200).json(Array.from(videos.values()))
   } catch (error) {
     res.status(500).json({error: 'Error inesperado'})
   }
 })
 
+// GET ONE VIDEO BY ID
 app.get('/videos/:id', async (req, res) => {
-  console.log('/Videos/id');
   try {
     const {id} = req.params
 
@@ -40,7 +43,7 @@ app.get('/videos/:id', async (req, res) => {
       return res.status(400).json({ message: 'Invalid video id' })
     }
 
-    const video = videos.find(video => video.id === Number(id))
+    const video = videos.get(Number(id))
 
     if (!video) {
       return res.status(404).json({ message: 'Video not found' })
@@ -52,6 +55,7 @@ app.get('/videos/:id', async (req, res) => {
   }
 })
 
+// CREATE NEW VIDEO
 app.post('/videos', async (req, res) => {
   try {
     const {body} = req
@@ -65,7 +69,7 @@ app.post('/videos', async (req, res) => {
       id: videos.length + 1,
       ...body
     }
-    videos.push(newVideo)
+    videos.set(newVideo.id, newVideo)
 
     res.status(200).json({...newVideo})
 
@@ -74,6 +78,7 @@ app.post('/videos', async (req, res) => {
   }
 })
 
+// UPDATE ONE VIDEO
 app.patch('/videos/:id', async (req, res) => {
   try {
     const result = await validatePartialVideo(req.body)
@@ -83,16 +88,32 @@ app.patch('/videos/:id', async (req, res) => {
     }
     const {id} = req.params
 
-    const index = videos.findIndex(video => video.id === Number(id))
+    const video = videos.get(Number(id))
 
-    if (index === -1) return res.status(404).json({ message: 'Video not found' }),
+    if (!video) return res.status(404).json({ message: 'Video not found' }),
 
-    videos[index] = {
-      ...videos[index],
-      ...req.body
+    videos.set(video.id, {...video, ...req.body})
+
+    res.status(201).json({...videos.get(video.id)})
+  } catch (error) {
+    res.status(500).send({error: error.message})
+  }
+})
+
+// DELETE ONE VIDEO
+app.delete('/videos/:id', async (req, res) => {
+  try {
+    const {id} = req.params
+    if (isNaN(Number(id))) {
+      return res.status(400).json({ message: 'Invalid video id' })
     }
 
-    res.status(201).json(videos[index])
+    const deleted = videos.delete(id)
+
+    if (deleted) {
+      return res.status(204).send({ message: 'Eliminado correctamente' })
+    }
+    res.status(404).json({message: 'Not found'})
   } catch (error) {
     res.status(500).send({error: error.message})
   }
