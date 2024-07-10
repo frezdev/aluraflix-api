@@ -1,4 +1,4 @@
-export const videos = [
+const videosArray = [
   {
     "id": 1,
     "title": "La Verdad de Ser DESARROLLADOR FRONTEND en 2024",
@@ -34,7 +34,6 @@ export const videos = [
   {
     "id": 5,
     "title": "Especialidad BACKEND | RESUMEN SEMANA 1 - 3 | Oracle Next Education + Alura Latam",
-    "category": "Back End",
     "categoryId": 2,
     "image": "https://i.ytimg.com/vi/b71kWley8-o/hq720.jpg?sqp=-oaymwE2CNAFEJQDSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgB_gmAAtAFigIMCAAQARh_ICYoLzAP&rs=AOn4CLCvNgRr8MEdjyYPFOlZZmtyYxoOFA",
     "description": "Especialidad BACKEND | RESUMEN SEMANA 1 - 3 | Oracle Next Education + Alura Latam",
@@ -43,7 +42,6 @@ export const videos = [
   {
     "id": 6,
     "title": "O que faz uma desenvolvedora Back-end? com Juliana Amoasei | #HipstersPontoTube",
-    "category": "Back End",
     "categoryId": 2,
     "image": "https://i.ytimg.com/vi/fiPfvylj6rk/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDTpL8dYV4PwLV0Q3OminyZxlRR2Q",
     "description": "O que faz uma desenvolvedora Back-end? com Juliana Amoasei | #HipstersPontoTube",
@@ -52,7 +50,6 @@ export const videos = [
   {
     "id": 7,
     "title": "PORTAFOLIO PROGRAMADOR BACKEND 🤘",
-    "category": "Back End",
     "categoryId": 2,
     "image": "https://i.ytimg.com/vi/KhkqcVU22WU/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBdAdb7Fv_KiFNx_z18nYdJkiaGLA",
     "description": "PORTAFOLIO PROGRAMADOR BACKEND 🤘",
@@ -61,7 +58,6 @@ export const videos = [
   {
     "id": 8,
     "title": "Ruta de aprendizaje para Desarrollador Backend - Cómo empezar desarrollo este 2024?",
-    "category": "Back End",
     "categoryId": 2,
     "image": "https://i.ytimg.com/vi/cnn48_Yv380/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA7vp-gA64ujS6Si2qPOwWSmO9X_w",
     "description": "Ruta de aprendizaje para Desarrollador Backend - Cómo empezar desarrollo este 2024?",
@@ -70,7 +66,6 @@ export const videos = [
   {
     "id": 9,
     "title": "🤓¿Por qué estudiar la Especialización en Innovación Social y Gestión de Proyectos de UNICERVANTES?🌎",
-    "category": "Innovación y Gestión",
     "categoryId": 3,
     "image": "https://i.ytimg.com/vi/E92sQ-VKKcM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDSmlDKGlq-nSIDhlu9UkSzDCezLw",
     "description": "🤓¿Por qué estudiar la Especialización en Innovación Social y Gestión de Proyectos de UNICERVANTES?🌎",
@@ -79,7 +74,6 @@ export const videos = [
   {
     "id": 10,
     "title": "Gestión del Desarrollo Administrativo e Innovación",
-    "category": "Innovación y Gestión",
     "categoryId": 3,
     "image": "https://i.ytimg.com/vi/HOzeFUvts5o/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAZ_wjGT5W2zsoRVyxMN5b7DgVB_A",
     "description": "Gestión del Desarrollo Administrativo e Innovación",
@@ -96,10 +90,11 @@ export const videos = [
   {
     "id": 12,
     "title": "Desafíos y soluciones del trabajo remoto #AluraTips",
-    "category": "Innovación y Gestión",
     "categoryId": 3,
     "image": "https://i.ytimg.com/vi/kIvnVfnmDyE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAlh-Eoy11cjQOCkD3vXatE0auOew",
     "description": "Desafíos y soluciones del trabajo remoto #AluraTips",
     "url": "https://youtu.be/kIvnVfnmDyE?si=ABBJ-2qUkphNbLWX"
   }
 ]
+
+export const videos = new Map(videosArray.map(video => [video.id, video]))
