@@ -103,15 +103,15 @@ app.patch('/videos/:id', async (req, res) => {
 // DELETE ONE VIDEO
 app.delete('/videos/:id', async (req, res) => {
   try {
-    const {id} = req.params
-    if (isNaN(Number(id))) {
+    const id = Number(req.params.id)
+    if (isNaN(id)) {
       return res.status(400).json({ message: 'Invalid video id' })
     }
 
     const deleted = videos.delete(id)
 
     if (deleted) {
-      return res.status(204).send({ message: 'Eliminado correctamente' })
+      return res.status(204).end()
     }
     res.status(404).json({message: 'Not found'})
   } catch (error) {
